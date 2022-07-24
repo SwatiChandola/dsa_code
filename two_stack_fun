@@ -1,0 +1,106 @@
+#include <stdio.h>
+#define MAX_CAPACITY 20 
+typedef struct
+{                            
+    int array[MAX_CAPACITY]; 
+    int topA;                
+    int topB;
+} DoubleStack; 
+void PushA(DoubleStack *stk, int element)
+{ 
+    if (stk->topA <= stk->topB)
+    { 
+        stk->array[stk->topA++] = element;
+    }
+    else
+    { 
+        printf("Stack is full!\n");
+    }
+} 
+void PushB(DoubleStack *stk, int element)
+{ 
+    if (stk->topA <= stk->topB)
+    { 
+        stk->array[stk->topB--] = element;
+    }
+    else
+    {
+        printf("Stack is full!\n");
+    }
+} 
+int PopA(DoubleStack *stk)
+{ 
+    if (stk->topA == 0)
+    { 
+        printf("Stack A is empty!\n");
+        return -1;
+    }
+    else
+    { 
+        return stk->array[--stk->topA];
+    }
+} 
+int PopB(DoubleStack *stk)
+{
+    if (stk->topB == MAX_CAPACITY - 1)
+    {
+        printf("Stack B is empty!\n");
+        return -1;
+    }
+    else
+    { 
+        return stk->array[++stk->topB];
+    }
+} 
+int IsEmptyA(DoubleStack *stk)
+{
+    if (stk->topA == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+} 
+int IsEmptyB(DoubleStack *stk)
+{
+    if (stk->topB == MAX_CAPACITY - 1)
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
+}
+int main()
+{   
+    printf("swati\n");
+    DoubleStack dbStk; 
+    dbStk.topA = 0;
+    dbStk.topB = MAX_CAPACITY - 1;
+    for (int i = 1; i <= 15; i++)
+    {
+        PushA(&dbStk, i);
+    } 
+    for (int i = 51; i <= 55; i++)
+    {
+        PushB(&dbStk, i);
+    } 
+    PushA(&dbStk, 7);
+    PushB(&dbStk, 2); 
+    printf("Stack A: ");
+    while (IsEmptyA(&dbStk) != 1)
+    {
+        printf("%d ", PopA(&dbStk));
+    }
+    printf("\n"); 
+    printf("Stack B: ");
+    while (IsEmptyB(&dbStk) != 1)
+    {
+        printf("%d ", PopB(&dbStk));
+    }
+    printf("\n");
+    return 0;
+}
